@@ -1,1 +1,162 @@
-
+{
+    "title": "oei1",
+    "subtitle": "-",
+    "folder": "projects/oei1",
+    "blocks": [
+        {
+            "template": "mediumText",
+            "text": ".",
+            "title": "",
+            "backgroundImage": null,
+            "color": "#212121",
+            "background": "#212121",
+            "highlightColor": "#212121"
+        },
+        {
+            "template": "fullImage",
+            "imgs": "imgs/2.jpg",
+            "color": "#000000",
+            "background": "#ffffff",
+            "highlightColor": "#cccccc"
+        },
+        {
+            "template": "mediumText",
+            "text": "Estudio de la gestión y gobierno de la (color)educación (color)secundaria durante la pandemia de COVID-19 en Argentina",
+            "title": "",
+            "backgroundImage": null,
+            "color": "#47c8ff",
+            "background": "#212121",
+            "highlightColor": "#cccccc"
+        },
+        {
+            "template": "boldText",
+            "color": "#ffffff",
+            "background": "#1657c7",
+            "highlightColor": "#aaaaff",
+            "text": "¿Cómo se gestionó la educación secundaria en la (color)pandemia",
+            "title": ""
+        },
+        {
+            "template": "boldText",
+            "color": "#000000",
+            "highlightColor": "#9c3030",
+            "background": "#a2d2e6",
+            "text": "¿Cómo respondieron las provincias de (color)Mendoza, (color)Córdoba, (color)La (color)Pampa y (color)Corrientes a los desafíos que surgieron en las escuelas? ",
+            "title": "",
+            "backgroundImage": "imgs/mapa.jpg"
+        },
+        {
+            "template": "boldText",
+            "text": "(color)Lo (color)que (color)pasó ¿nos sirve para  transformar la secundaria?",
+            "title": "",
+            "backgroundImage": null,
+            "color": "#ffffff",
+            "background": "#111111",
+            "highlightColor": "#25c0f4"
+        },
+        {
+            "template": "boldText",
+            "text": "CON LA (color)PANDEMIA . . .",
+            "title": "",
+            "backgroundImage": null,
+            "color": "#e68aff",
+            "background": "#111111",
+            "highlightColor": "#fed6ff"
+        },
+        {
+            "template": "boldText",
+            "text": "&nbsp;Se profundizaron las desigualdades que ya existían entre las provincias",
+            "title": "Con la pandemia:",
+            "backgroundImage": null,
+            "color": "#ffffff",
+            "background": "#111111",
+            "highlightColor": "#cccccc"
+        },
+        {
+            "template": "boldText",
+            "text": "La mayoría de los sistemas educativos no contaba con las (color)condiciones ni la (color)experiencia necesarias en educación virtual o híbrida",
+            "title": "Durante la pandemia",
+            "backgroundImage": null,
+            "color": "#ffffff",
+            "background": "#111111",
+            "highlightColor": "#61b3ff"
+        },
+        {
+            "template": "boldText",
+            "text": "Más de (color)1.000.000 de estudiantes quedaron desvinculados de la escuela.",
+            "title": "Durante la pandemia:",
+            "backgroundImage": null,
+            "color": "#a3a3a3",
+            "background": "#ffffff",
+            "highlightColor": "#a87a7a"
+        },
+        {
+            "template": "boldText",
+            "text": "Aumentaron las probabilidades de (color)abandono (color)escolar.",
+            "title": "Con la pandemia:",
+            "backgroundImage": null,
+            "color": "#a3a3a3",
+            "background": "#ffffff",
+            "highlightColor": "#a87a7a"
+        },
+        {
+            "template": "boldText",
+            "text": "¿Y entonces, el (color)derecho (color)a (color)la (color)educación?",
+            "title": "",
+            "backgroundImage": null,
+            "color": "#ffffff",
+            "background": "#111111",
+            "highlightColor": "#02a0e3"
+        },
+        {
+            "template": "fullImage",
+            "background": "#000000",
+            "color": "#ffffff",
+            "imgs": "imgs/1.jpg",
+            "highlightColor": "#ffffff"
+        },
+        {
+            "template": "staff",
+            "color": "#b3e5ff",
+            "background": "#575757",
+            "title": "Estudio de la gestión y gobierno de la educación secundaria durante la pandemia de COVID-19 en Argentina",
+            "list": [
+                {
+                    "title": "Investigadores/as",
+                    "names": [
+                        "Mora Médici",
+                        "Andrea Rozenberg ",
+                        "Jaime Piracón",
+                        "Franco Balaguer "
+                    ]
+                },
+                {
+                    "title": "Coordinación del proyecto",
+                    "names": [
+                        "Marisa Alvarez",
+                        "Daniel Pinkasz ",
+                        "Nancy Montes",
+                        "Lilia Toranzos "
+                    ]
+                }
+            ],
+            "highlightColor": "#111111"
+        },
+        {
+            "template": "boldText",
+            "text": ".",
+            "title": "",
+            "backgroundImage": null,
+            "color": "#000000",
+            "background": "#111111",
+            "highlightColor": "#cccccc"
+        }
+    ],
+    "thumbs": [
+        "http://localhost/OEI/projects/projects/oei1/thumbs/2.jpg",
+        "http://localhost/OEI/projects/projects/oei1/thumbs/2.jpg",
+        "http://localhost/OEI/projects/projects/oei1/thumbs/2.jpg"
+    ],
+    "inactive": false,
+    "index": 10
+}
