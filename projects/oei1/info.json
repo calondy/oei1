@@ -5,10 +5,10 @@
     "blocks": [
         {
             "template": "mediumText",
-            "text": ".",
-            "title": "",
+            "text": "",
+            "title": ".",
             "backgroundImage": null,
-            "color": "#212121",
+            "color": "#525252",
             "background": "#212121",
             "highlightColor": "#212121"
         },
@@ -20,93 +20,101 @@
             "highlightColor": "#cccccc"
         },
         {
-            "template": "mediumText",
-            "text": "Estudio de la gestión y gobierno de la (color)educación (color)secundaria durante la pandemia de COVID-19 en Argentina",
+            "template": "svgApp",
+            "text": "Modos de gestión y gobierno de la (color)educación (color)secundaria durante la pandemia de COVID-19 en Argentina",
             "title": "",
             "backgroundImage": null,
-            "color": "#47c8ff",
-            "background": "#212121",
-            "highlightColor": "#cccccc"
-        },
-        {
-            "template": "boldText",
+            "app": "curves1App",
             "color": "#ffffff",
-            "background": "#1657c7",
-            "highlightColor": "#aaaaff",
-            "text": "¿Cómo se gestionó la educación secundaria en la (color)pandemia",
-            "title": ""
+            "background": "#111111",
+            "highlightColor": "#0ac2ff"
         },
         {
-            "template": "boldText",
+            "template": "svgApp",
+            "text": "¿Cómo se gestionó la educación secundaria en la (color)pandemia?",
+            "title": "",
+            "backgroundImage": null,
+            "app": "sistemasApp",
             "color": "#000000",
-            "highlightColor": "#9c3030",
-            "background": "#a2d2e6",
-            "text": "¿Cómo respondieron las provincias de (color)Mendoza, (color)Córdoba, (color)La (color)Pampa y (color)Corrientes a los desafíos que surgieron en las escuelas? ",
-            "title": "",
-            "backgroundImage": "imgs/mapa.jpg"
+            "background": "#db4874",
+            "highlightColor": "#ffb81f"
         },
         {
             "template": "boldText",
-            "text": "(color)Lo (color)que (color)pasó ¿nos sirve para  transformar la secundaria?",
+            "color": "#e4d2d2",
+            "highlightColor": "#ff9e9e",
+            "background": "#000000",
+            "text": "¿Cómo respondieron las provincias de (color)Mendoza, (color)Córdoba, (color)La (color)Pampa y (color)Corrientes a los desafíos que surgieron en las escuelas?&nbsp;",
+            "title": "",
+            "backgroundImage": null
+        },
+        {
+            "template": "svgApp",
+            "text": "(color)Lo (color)que (color)pasó ¿nos sirve para transformar la secundaria?",
+            "title": "",
+            "backgroundImage": "imgs/Screen_Shot_2023-05-19_at_17.42.08.png",
+            "app": "schoolApp",
+            "color": "#ffffff",
+            "background": "#7a7a7a",
+            "highlightColor": "#000000"
+        },
+        {
+            "template": "svgApp",
+            "text": "¿Qué hicieron para vincular  a los y las estudiantes sobre todo a aquellos en riesgo de abandono escolar? ¿Cómo garantizaron el derecho a la educación?",
             "title": "",
             "backgroundImage": null,
+            "app": "defaultApp",
+            "color": "#707070",
+            "background": "#b0b0b0",
+            "highlightColor": "#ffd60a"
+        },
+        {
+            "template": "mediumText",
+            "text": "Entre los meses de mayo y agosto de 2022 la OEI  estudió los  programas, estrategias y acciones  que desarrollaron las 4 provincias para  sostener la continuidad pedagógica y acompañar las trayectorias de los y las estudiantes.  ",
+            "title": "",
+            "backgroundImage": "imgs/Screen_Shot_2022-02-23_at_19.26.46.png",
             "color": "#ffffff",
             "background": "#111111",
-            "highlightColor": "#25c0f4"
+            "highlightColor": "#cccccc"
         },
         {
-            "template": "boldText",
-            "text": "CON LA (color)PANDEMIA . . .",
+            "template": "svgApp",
+            "text": "Se evidenciaron (color)desigualdades previas que condicionaron las respuestas de los sistemas educativos provinciales. ",
+            "title": "",
+            "backgroundImage": "imgs/Screen_Shot_2022-02-23_at_18.37.32.png",
+            "app": "graphApp",
+            "color": "#000000",
+            "background": "#aaaaaa",
+            "highlightColor": "#fddd0d"
+        },
+        {
+            "template": "svgApp",
+            "text": "",
             "title": "",
             "backgroundImage": null,
-            "color": "#e68aff",
+            "app": "palabrasApp",
+            "color": "#ffffff",
             "background": "#111111",
-            "highlightColor": "#fed6ff"
+            "highlightColor": "#cccccc"
         },
         {
-            "template": "boldText",
-            "text": "&nbsp;Se profundizaron las desigualdades que ya existían entre las provincias",
-            "title": "Con la pandemia:",
-            "backgroundImage": null,
+            "template": "svgApp",
+            "text": "",
+            "title": "",
+            "backgroundImage": "imgs/neocDev_post.png",
+            "app": "palabras2App",
             "color": "#ffffff",
             "background": "#111111",
             "highlightColor": "#cccccc"
         },
         {
             "template": "boldText",
-            "text": "La mayoría de los sistemas educativos no contaba con las (color)condiciones ni la (color)experiencia necesarias en educación virtual o híbrida",
-            "title": "Durante la pandemia",
-            "backgroundImage": null,
-            "color": "#ffffff",
-            "background": "#111111",
-            "highlightColor": "#61b3ff"
-        },
-        {
-            "template": "boldText",
-            "text": "Más de (color)1.000.000 de estudiantes quedaron desvinculados de la escuela.",
-            "title": "Durante la pandemia:",
-            "backgroundImage": null,
-            "color": "#a3a3a3",
-            "background": "#ffffff",
-            "highlightColor": "#a87a7a"
-        },
-        {
-            "template": "boldText",
-            "text": "Aumentaron las probabilidades de (color)abandono (color)escolar.",
-            "title": "Con la pandemia:",
-            "backgroundImage": null,
-            "color": "#a3a3a3",
-            "background": "#ffffff",
-            "highlightColor": "#a87a7a"
-        },
-        {
-            "template": "boldText",
-            "text": "¿Y entonces, el (color)derecho (color)a (color)la (color)educación?",
+            "text": "El estudio  identificó en las experiencias provinciales hallazgos y tendencias que pueden contribuir a la (color)transformación de la secundaria   ",
             "title": "",
             "backgroundImage": null,
-            "color": "#ffffff",
-            "background": "#111111",
-            "highlightColor": "#02a0e3"
+            "color": "#a3a3a3",
+            "background": "#ffffff",
+            "highlightColor": "#a87a7a"
         },
         {
             "template": "fullImage",
@@ -114,33 +122,6 @@
             "color": "#ffffff",
             "imgs": "imgs/1.jpg",
             "highlightColor": "#ffffff"
-        },
-        {
-            "template": "staff",
-            "color": "#b3e5ff",
-            "background": "#575757",
-            "title": "Estudio de la gestión y gobierno de la educación secundaria durante la pandemia de COVID-19 en Argentina",
-            "list": [
-                {
-                    "title": "Investigadores/as",
-                    "names": [
-                        "Mora Médici",
-                        "Andrea Rozenberg ",
-                        "Jaime Piracón",
-                        "Franco Balaguer "
-                    ]
-                },
-                {
-                    "title": "Coordinación del proyecto",
-                    "names": [
-                        "Marisa Alvarez",
-                        "Daniel Pinkasz ",
-                        "Nancy Montes",
-                        "Lilia Toranzos "
-                    ]
-                }
-            ],
-            "highlightColor": "#111111"
         },
         {
             "template": "boldText",
