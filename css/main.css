@@ -1,4 +1,31 @@
- 
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/manrope/v14/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk59FO_F.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/manrope/v14/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk6jFO_F.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/manrope/v14/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk7PFO_F.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/manrope/v14/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk4jE-_F.ttf) format('truetype');
+}
 body {
   margin: 0;
   background-color: #000000;
@@ -974,6 +1001,19 @@ svg#clientsSvg text.highl {
   transform: translate(0px, 0vh);
   transition: transform 1s ease-in-out, opacity 1s ease-in-out;
 }
+#proyecto .sect_svgApp {
+  display: block !important;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+#proyecto .sect_svgApp svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 #proyecto .sectionTitle {
   font-size: 12px;
 }
@@ -996,7 +1036,7 @@ svg#clientsSvg text.highl {
 }
 @media (max-width: 767px) {
   #proyecto .sect_gallery {
-    height: 50vh;
+    height: 100vh;
   }
 }
 #proyecto .sect_fullImage {
@@ -1005,7 +1045,7 @@ svg#clientsSvg text.highl {
 }
 @media (max-width: 767px) {
   #proyecto .sect_fullImage {
-    height: 61vw;
+    height: 100vh;
   }
 }
 @media (max-width: 767px) {
@@ -1043,6 +1083,36 @@ svg#clientsSvg text.highl {
   background-color: black;
   height: 100%;
   position: relative;
+}
+#proyecto .svgApp {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#proyecto .svgApp .svgAppTextContainer {
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+#proyecto .svgApp .svgAppTextContainer h3 {
+  margin-top: 0;
+}
+#proyecto .svgApp .svgAppTextContainer > div {
+  max-width: 800px;
+  padding: 32px;
+  flex: 1;
+}
+#proyecto .svgApp > svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 #proyecto .boldText,
 #proyecto .mediumText {
