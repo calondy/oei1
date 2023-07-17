@@ -293,6 +293,16 @@
 
   // src/templates.js
   var templates = {
+    svgApp: `
+    <div class='svgApp'>
+    <svg xmlns="http://www.w3.org/2000/svg" ></svg> 
+    <div class='svgAppTextContainer'>
+    <div>
+    <p class='sectionTitle'>{title}</p>
+    <h3>{txt}</h3>
+    </div>
+    </div>
+    </div>`,
     fullVideo: `<div class='fullVideo'>
     
         <video style='width:100%;height:100%;objectFit:cover;'  loop='' muted=''   >
@@ -606,6 +616,719 @@
     return { end };
   }
 
+  // src/lib/svgApps/apps/defaultApp.js
+  function defaultApp() {
+    return {
+      name: "defaultApp",
+      circles: [],
+      svg: null,
+      start: function(svg2, args) {
+        this.svg = svg2;
+        console.log(this.name, "svgApp starts");
+        try {
+          this.circles.forEach((c) => {
+            this.svg.removeChild(c);
+          });
+        } catch (e) {
+          console.log(e);
+        }
+        this.circles = [];
+        let rn = Math.random() * 50 + 5;
+        for (var i = 0; i < rn; i++) {
+          this.circles.push(DCircle(svg2, window.innerWidth, window.innerHeight));
+        }
+      },
+      end: function() {
+        console.log(this.name, "svgApp ends");
+      },
+      run: function() {
+        this.circles.forEach((c) => c.run());
+      }
+    };
+  }
+  function DCircle(svg2, w, h) {
+    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    let el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    el.setAttribute("r", Math.random() * 30 + 46);
+    el.setAttribute("fill", "#aaaaaaaa");
+    el.setAttribute("stroke", "#000000");
+    el.setAttribute("cx", "0");
+    el.setAttribute("cy", "0");
+    svg2.appendChild(g);
+    let ocy = Math.random() * h;
+    let ocx = Math.random() * w;
+    let el2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    el2.setAttribute("fill", "#111111");
+    el2.setAttribute("stroke", "#ffdd00");
+    el2.setAttribute("cx", Math.random() * 30 - 15);
+    el2.setAttribute("cy", Math.random() * 30 - 15);
+    el2.setAttribute("r", 2 + Math.random() * 3);
+    g.appendChild(el);
+    g.appendChild(el2);
+    return {
+      an: 0,
+      av: Math.random() - 0.5,
+      g,
+      el,
+      cx: ocx,
+      cy: ocy,
+      vx: Math.random() * 20 - 10,
+      vy: Math.random() * 3 - 1.5,
+      run: function() {
+        this.cx += this.vx;
+        this.cy += this.vy;
+        if (this.cx > w) {
+          this.cx = 0;
+          this.vx = this.vx;
+        }
+        if (this.cx < 0) {
+          this.cx = w;
+          this.vx = this.vx;
+        }
+        if (this.cy > h) {
+          this.cy = 0;
+          this.vy = this.vy;
+        }
+        if (this.cy < 0) {
+          this.cy = h;
+          this.vy = this.vy;
+        }
+        this.g.setAttribute("transform", `translate(${this.cx},${this.cy}) rotate(${this.an})`);
+        this.an += this.av * 2;
+        if (this.an > 359)
+          this.an = this.an - 360;
+        if (this.an < 0)
+          this.an = this.an + 360;
+      }
+    };
+  }
+
+  // src/lib/svgApps/apps/graphApp.js
+  var svgNS = "http://www.w3.org/2000/svg";
+  function graphApp() {
+    return {
+      name: "GRAPH_APP",
+      circles: [],
+      svg: null,
+      start: function(svg2, args) {
+        this.svg = svg2;
+        console.log(this.name, "svgApp starts");
+        try {
+          this.circles.forEach((c) => {
+            svg2.removeChild(c);
+          });
+        } catch (e) {
+          console.log(e);
+        }
+        this.circles = [];
+        let rn = Math.random() * 500 + 25;
+        for (var i = 0; i < rn; i++) {
+          this.circles.push(Circle(svg2, window.innerWidth, window.innerHeight));
+        }
+      },
+      end: function() {
+        console.log(this.name, "svgApp ends");
+      },
+      run: function() {
+        this.circles.forEach((c) => c.run());
+      }
+    };
+  }
+  function Circle(svg2, w, h) {
+    let g = document.createElementNS(svgNS, "g");
+    let el = document.createElementNS(svgNS, "circle");
+    let maxv = 5;
+    el.setAttribute("r", Math.random() * 3 + 3);
+    el.setAttribute("fill", "#ffffff");
+    el.setAttribute("stroke", "none");
+    el.setAttribute("cx", "0");
+    el.setAttribute("cy", "0");
+    svg2.appendChild(g);
+    let ocy = Math.random() * h;
+    let ocx = Math.random() * w;
+    virus(g);
+    g.appendChild(el);
+    return {
+      an: 0,
+      av: Math.random() - 0.5,
+      g,
+      el,
+      cx: ocx,
+      cy: ocy,
+      vx: Math.random() * 5 - 2.5,
+      vy: Math.random() * 5 - 2.5,
+      run: function() {
+        if (Math.random() * 100 < 10) {
+          this.vx += Math.random() < 0.5 ? 1 : -1;
+          this.vy += Math.random() < 0.5 ? 1 : -1;
+          if (this.vx > maxv)
+            this.vx = maxv;
+          if (this.vy > maxv)
+            this.vy = maxv;
+          if (this.vx < -maxv)
+            this.vx = -maxv;
+          if (this.vy < -maxv)
+            this.vy = -maxv;
+        }
+        this.cx += this.vx;
+        this.cy += this.vy;
+        if (this.cx > w) {
+          this.cx = w;
+          this.vx = -this.vx;
+        }
+        if (this.cx < 0) {
+          this.cx = 0;
+          this.vx = -this.vx;
+        }
+        if (this.cy > h) {
+          this.cy = h;
+          this.vy = -this.vy;
+        }
+        if (this.cy < 0) {
+          this.cy = 0;
+          this.vy = -this.vy;
+        }
+        this.g.setAttribute("transform", `translate(${this.cx},${this.cy}) rotate(${this.an})`);
+        this.an += (this.vx + this.vy) * 1.5;
+        if (this.an > 359)
+          this.an = this.an - 360;
+        if (this.an < 0)
+          this.an = this.an + 360;
+      }
+    };
+  }
+  function virus(g) {
+    let nlines = parseInt(Math.random() * 15 + 7);
+    let step = 360 / nlines;
+    let a = 0;
+    let x1 = 0;
+    let y1 = 0;
+    for (var i = 0; i < nlines; i++) {
+      let line = document.createElementNS(svgNS, "line");
+      let P = calculateScreenPosition(x1, y1, a);
+      let x2 = P.x;
+      let y2 = P.y;
+      line.setAttribute("stroke", "#ffffffaa");
+      line.setAttribute("stroke-width", "1");
+      line.setAttribute("x1", x1);
+      line.setAttribute("y1", y1);
+      line.setAttribute("x2", x2);
+      line.setAttribute("y2", y2);
+      g.appendChild(line);
+      a += step;
+    }
+    function calculateScreenPosition(originX, originY, angle) {
+      var radians = angle * Math.PI / 180;
+      var distance = Math.random() * 15 + 6;
+      var x = originX + distance * Math.cos(radians);
+      var y = originY + distance * Math.sin(radians);
+      return { x, y };
+    }
+  }
+
+  // src/lib/svgApps/apps/sistemasApp.js
+  var svgNS2 = "http://www.w3.org/2000/svg";
+  function sistemasApp() {
+    let name = "sistemasApp";
+    let circles = [];
+    let svg2 = null;
+    function start(svg1, args) {
+      svg2 = svg1;
+      console.log(name, "svgApp starts");
+      try {
+        circles.forEach((c) => {
+          svg2.removeChild(c);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      circles = [];
+      let rn = Math.random() * 50 + 100;
+      for (var i = 0; i < rn; i++) {
+        circles.push(CircleSist(svg2, window.innerWidth, window.innerHeight));
+      }
+    }
+    function end() {
+      console.log(this.name, "svgApp ends");
+    }
+    function run() {
+      circles.forEach((c) => c.run());
+    }
+    return { start, end, run };
+  }
+  function CircleSist(svg2, w, h) {
+    let col = randCol();
+    let g = document.createElementNS(svgNS2, "g");
+    let el = document.createElementNS(svgNS2, "circle");
+    let maxv = 5;
+    el.setAttribute("r", Math.random() * 10 + 5);
+    el.setAttribute("fill", col);
+    el.setAttribute("stroke", "none");
+    el.setAttribute("cx", "0");
+    el.setAttribute("cy", "0");
+    svg2.appendChild(g);
+    let ocy = Math.random() * h;
+    let ocx = Math.random() * w;
+    Virus(g, randCol());
+    g.appendChild(el);
+    return {
+      an: 0,
+      av: Math.random() - 0.5,
+      g,
+      el,
+      cx: ocx,
+      cy: ocy,
+      vx: Math.random() * 5 - 2.5,
+      vy: Math.random() * 5 - 2.5,
+      run: function() {
+        if (Math.random() * 100 < 10) {
+          this.vx += Math.random() < 0.5 ? 1 : -1;
+          this.vy += Math.random() < 0.5 ? 1 : -1;
+          if (this.vx > maxv)
+            this.vx = maxv;
+          if (this.vy > maxv)
+            this.vy = maxv;
+          if (this.vx < -maxv)
+            this.vx = -maxv;
+          if (this.vy < -maxv)
+            this.vy = -maxv;
+        }
+        this.cx += this.vx;
+        this.cy += this.vy;
+        if (this.cx > w) {
+          this.cx = w;
+          this.vx = -this.vx;
+        }
+        if (this.cx < 0) {
+          this.cx = 0;
+          this.vx = -this.vx;
+        }
+        if (this.cy > h) {
+          this.cy = h;
+          this.vy = -this.vy;
+        }
+        if (this.cy < 0) {
+          this.cy = 0;
+          this.vy = -this.vy;
+        }
+        this.g.setAttribute("transform", `translate(${this.cx},${this.cy}) rotate(${this.an})`);
+        this.an += (this.vx + this.vy) * 1.5;
+        if (this.an > 359)
+          this.an = this.an - 360;
+        if (this.an < 0)
+          this.an = this.an + 360;
+      }
+    };
+    function randCol() {
+      let arr = "#111111 #440000 #004400 #ffffff".split(" ");
+      return arr[parseInt(Math.random() * arr.length)];
+    }
+  }
+  function Virus(g, col) {
+    if (col) {
+    } else
+      col = "#000000";
+    let nlines = parseInt(Math.random() * 15 + 7);
+    let step = 360 / nlines;
+    let a = 0;
+    let x1 = 0;
+    let y1 = 0;
+    for (var i = 0; i < nlines; i++) {
+      let line = document.createElementNS(svgNS2, "line");
+      let P = calculateScreenPosition(x1, y1, a);
+      let x2 = P.x;
+      let y2 = P.y;
+      line.setAttribute("stroke", col);
+      line.setAttribute("stroke-width", "2");
+      line.setAttribute("x1", x1);
+      line.setAttribute("y1", y1);
+      line.setAttribute("x2", x2);
+      line.setAttribute("y2", y2);
+      g.appendChild(line);
+      a += step;
+    }
+    function calculateScreenPosition(originX, originY, angle) {
+      var radians = angle * Math.PI / 180;
+      var distance = Math.random() * 15 + 10;
+      var x = originX + distance * Math.cos(radians);
+      var y = originY + distance * Math.sin(radians);
+      return { x, y };
+    }
+  }
+
+  // src/lib/svgApps/apps/schoolApp.js
+  function schoolApp() {
+    let top = 0.6;
+    let scolaW = 230;
+    let ww = window.innerWidth;
+    let hh = window.innerHeight;
+    let schools = [];
+    let svg2;
+    function start(svga) {
+      svg2 = svga;
+      let n = ww / scolaW;
+      let x = 0;
+      for (var i = 0; i < n; i++) {
+        let o = { x, y: hh * top - Math.random() * 10, v: 2 + Math.random() * 3, boys: [] };
+        let gg = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        gg.innerHTML = school;
+        svg2.appendChild(gg);
+        gg.setAttribute("transform", `translate(${o.x},${o.y}) scale(0.5)`);
+        schools.push({ g: gg, ...o });
+        x += scolaW + 2;
+      }
+    }
+    function end() {
+    }
+    function run() {
+      if (svg2) {
+      } else
+        return;
+      schools.forEach((o) => {
+        o.boys.forEach((b) => b.run());
+        o.v = 2 + Math.random() * 3;
+        o.x += o.v;
+        o.y += Math.random() < 0.5 ? 0.3 : -0.3;
+        if (o.x > ww) {
+          o.x -= ww + scolaW;
+          o.y = hh * top - Math.random() * 10;
+        }
+        o.g.setAttribute("transform", `translate(${o.x},${o.y}) scale(1,1)`);
+        if (Math.random() * 100 < 1 && o.boys.length < 20) {
+          o.boys.push(Boy(svg2, { ...o, x: o.x + scolaW / 2 }));
+        }
+      });
+    }
+    return { start, end, run };
+  }
+  function Boy(svg2, o) {
+    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    let b = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    let p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    let x = o.x;
+    let vy = 0;
+    let grav = 0.1;
+    let vx = o.v;
+    let y = o.y + 100;
+    let h = y + 100;
+    let wv = (Math.random() + 0.1) * 0.4;
+    let active2 = true, ended = false;
+    b.setAttribute("fill", "#111111");
+    b.setAttribute("cx", 0);
+    b.setAttribute("cy", 0);
+    b.setAttribute("r", 6);
+    p.setAttribute("fill", "#222222");
+    p.setAttribute("stroke", "#111111");
+    p.setAttribute("d", `M -4,7 L4,7 2,20 -2,20 z`);
+    g.appendChild(p);
+    g.appendChild(b);
+    g.setAttribute("transform", `translate(${x},${y})`);
+    svg2.appendChild(g);
+    function run() {
+      if (!active2) {
+        if (ended) {
+          return;
+        }
+        y += wv;
+        x += vx;
+        vx *= 0.9;
+        g.setAttribute("transform", `translate(${x},${y})`);
+        if (y >= h + 200)
+          ended = true;
+        return;
+      }
+      x += vx;
+      y += vy;
+      vy += grav;
+      vx *= 0.99;
+      g.setAttribute("transform", `translate(${x},${y})`);
+      if (y >= h)
+        active2 = false;
+    }
+    return { run };
+  }
+  var school = ` 
+
+<path style="stroke: rgb(0, 0, 0); fill: rgb(244, 244, 244); transform-box: fill-box; transform-origin: 50% 50%;" d="M 13.893 132.139 L 220.181 132.139 L 220.181 62.841 L 13.893 62.841 L 13.893 132.139 Z"></path>
+<rect x="91.251" y="48.192" width="51.572" height="14.649" style="stroke: rgb(0, 0, 0); fill: rgb(199, 199, 199);"></rect>
+<rect x="90.251" y="129.005" width="51.572" height="7.081" style="stroke: rgb(0, 0, 0); fill: rgb(255, 255, 255);"></rect>
+<rect x="7.893" y="71.476" width="219.181" height="6.014" style="stroke: rgb(0, 0, 0); fill: rgb(255, 255, 255);"></rect>
+<rect x="104.144" y="77.49" width="25.786" height="58.596" style="stroke: rgb(0, 0, 0); fill: rgb(44, 141, 171);" class="puerta" x="104.144"></rect>
+<rect x="26.786" y="77.49" width="25.786" height="29.298" style="stroke: rgb(0, 0, 0); fill: rgb(153, 210, 250);"></rect>
+<rect x="65.465" y="77.49" width="25.786" height="29.298" style="stroke: rgb(0, 0, 0); fill: rgb(153, 210, 250);"></rect>
+<rect x="142.823" y="77.49" width="25.786" height="29.298" style="stroke: rgb(0, 0, 0); fill: rgb(153, 210, 250);"></rect>
+<rect x="181.502" y="77.49" width="25.786" height="29.298" style="stroke: rgb(0, 0, 0); fill: rgb(153, 210, 250);"></rect>
+<path style="stroke: rgb(0, 0, 0); fill: rgb(0, 183, 255); transform-box: fill-box; transform-origin: 50% 50%;" d="M 116.037 12.193 L 154.716 12.012 L 154.716 18.894 L 116.037 18.894 L 116.037 12.193 Z"></path>
+<path style="stroke: rgb(0, 0, 0); fill: rgb(255, 255, 255); transform-box: fill-box; transform-origin: 50% 50%;" d="M 116.037 18.894 L 116.037 25.749 L 154.716 25.873 L 154.716 18.894 L 116.037 18.894 Z"></path>
+<path style="stroke: rgb(0, 0, 0); fill: rgb(0, 183, 255); transform-box: fill-box; transform-origin: 50% 50%;" d="M 116.037 25.822 L 116.037 33.543 L 154.716 33.543 L 154.716 25.904 L 116.037 25.822 Z"></path>
+<path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" d="M 116.037 9.987 L 116.037 47.617"></path>
+
+<!--
+    <path stroke='#aaaaaa' fill='white' stroke-width='2' 
+    d='M 5,180 L5,295 295,295 295,180 200,180 200,140 100,140 100,180 z'
+    ></path> 
+
+<path stroke='#aaaaaa' fill='white' stroke-width='2' 
+    d='M 120,220 L180,220 180,290 120,290 120,220 M150,220 150,290'
+    ></path> 
+
+<path stroke='#aaaaaa' fill='#cccccc' stroke-width='2' 
+    d='M 20,220 L60,220 60,260 20,260 z'
+    ></path> 
+
+<path stroke='#aaaaaa' fill='#cccccc' stroke-width='2' 
+    d='M 70,220 L110,220 110,260 70,260 z'
+    >
+    </path> 
+
+
+<path stroke='#aaaaaa' fill='#cccccc' stroke-width='2' 
+    d='M 190,220 L230,220 230,260 190,260 z'
+    ></path> 
+   
+
+<path stroke='#aaaaaa' fill='#cccccc' stroke-width='2' 
+    d='M 240,220 L280,220 280,260 240,260 z'
+    ></path> 
+<path stroke='#aaaaaa' fill='#cccccc' stroke-width='2' 
+    d='M 240,220 L280,220 280,260 240,260 z'
+    ></path> 
+   
+
+<path stroke='#aaaaaa' fill='#aabbff' stroke-width='2' 
+    d='M 150,90 L190,90 190,100 150,100 z'
+    ></path> 
+   
+<path stroke='#aaaaaa' fill='#ffffff' stroke-width='2' 
+    d='M 150,100 L190,100 190,110 150,110 z'
+    ></path> 
+<path stroke='#aaaaaa' fill='#aabbff' stroke-width='2' 
+    d='M 150,110 L190,110 190,120 150,120 z'
+    ></path> 
+      
+<path stroke='#111111' fill='none' stroke-width='2' 
+    d='M 150,88 L150,140'
+    ></path> 
+       -->
+`;
+
+  // src/lib/svgApps/apps/curves1App.js
+  function curves1App() {
+    return {
+      name: "curves1App",
+      svg: null,
+      start: function(svg1, args) {
+        svg = svg1;
+        console.log(this.name, "svgApp starts");
+        svg.innerHTML = `
+    <path d="M0,100  L0,100  S198.16666666666666,65.39086647910054 396.3333333333333,94.13016371202521  S594.5,166.3380063651604 792.6666666666666,103.33776455691782  S990.8333333333334,67.27994029093432 1189,109.26604896139992  " stroke="#ff55bb" fill="none" transition="all 2s ease-in-out"></path><path d="M0,100  L0,100  S99.08333333333333,58.76327258067832 198.16666666666666,106.12738621712602  S297.25,137.48873453248422 396.3333333333333,93.90709518710906  S495.4166666666667,82.86303468864357 594.5,101.9109531109679  S693.5833333333333,153.55852783246718 792.6666666666666,93.11077351553585  S891.7499999999999,57.312012827971785 990.8333333333333,101.3034035804746  S1089.9166666666667,130.91581510383372 1189,104.42014380229027  " stroke="#77ff77" fill="none" transition="all 2s ease-in-out"></path><path d="M0,100  L0,100  S99.08333333333333,58.668280034745635 198.16666666666666,105.91985666192505  S297.25,143.46365141595905 396.3333333333333,93.16327185208628  S495.4166666666667,39.00011018363922 594.5,96.4820550600662  S693.5833333333333,92.02560489907896 792.6666666666666,104.77262342510645  S891.7499999999999,13.288579580431474 990.8333333333333,103.28528898026187  S1089.9166666666667,122.53321618083194 1189,97.30302033419103  " stroke="#77ff77" fill="none" transition="all 2s ease-in-out"></path>
+    `;
+      },
+      end: function() {
+        console.log(this.name, "svgApp ends");
+      },
+      run: function() {
+      }
+    };
+  }
+
+  // src/lib/svgApps/apps/palabrasApp.js
+  function palabrasApp() {
+    const svgNS3 = "http://www.w3.org/2000/svg";
+    let sto;
+    let st = `DESIGUAL:
+Conectividad 
+Tama\xF1o y composici\xF3n
+Formas de organizaci\xF3n
+Presupuesto para educaci\xF3n`;
+    const arr = st.split("\n");
+    const fontSize = 50;
+    let bg = null;
+    const lineHeight = fontSize * 1.5;
+    const svgHeight = arr.length * lineHeight + 20;
+    let name = "palabrasApp";
+    let pals = [];
+    let svg2 = null;
+    let offset = 0;
+    function start(svg1, args) {
+      offset = window.innerHeight / 5;
+      svg2 = svg1;
+      console.log(name, "svgApp starts");
+      try {
+        pals.forEach((c) => {
+          svg2.removeChild(c);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      pals = [];
+      for (let i = 0; i < arr.length; i++) {
+        let txt = addPal(arr[i], i);
+        pals.push(txt);
+        svg2.appendChild(txt);
+      }
+      startAnim();
+    }
+    function startAnim() {
+      let i = 0;
+      showActual();
+      function showActual() {
+        pals[i].style.transition = "all 0.6s ease-in-out";
+        pals[i].setAttribute("transform", "translate(0,0)");
+        i++;
+        if (i >= pals.length)
+          return;
+        sto = setTimeout(showActual, 600);
+      }
+    }
+    function addPal(str, i) {
+      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.setAttribute("x", i == 0 ? "100" : 150 + i * 20);
+      text.setAttribute("y", (i * lineHeight + lineHeight + offset).toString());
+      text.setAttribute("font-size", fontSize.toString());
+      text.setAttribute("fill", bg || "white");
+      if (i == 0)
+        text.setAttribute("fill", "#aaaaff");
+      text.setAttribute("stroke", "#aaaaaa");
+      text.setAttribute("style", "letter-spacing:1px;font-family: sans-serif; font-weight: bold;");
+      text.setAttribute("transform", "translate(-1300,0)");
+      text.textContent = str;
+      return text;
+    }
+    function end() {
+      console.log(name, "svgApp ends");
+      clearTimeout(sto);
+    }
+    function run() {
+    }
+    return { start, end, run };
+  }
+
+  // src/lib/svgApps/apps/palabras2App.js
+  function palabras2App() {
+    const svgNS3 = "http://www.w3.org/2000/svg";
+    let sto;
+    let st = `HETEROGENEIDAD
+En las pol\xEDticas previas
+En los reg\xEDmenes acad\xE9micos
+En los modos de apropiaci\xF3n 
+de recursos`;
+    const arr = st.split("\n");
+    const fontSize = 50;
+    let bg = null;
+    const lineHeight = fontSize * 1.5;
+    const svgHeight = arr.length * lineHeight + 20;
+    let name = "palabrasApp";
+    let pals = [];
+    let svg2 = null;
+    let offset = 0;
+    function start(svg1, args) {
+      offset = window.innerHeight / 5;
+      svg2 = svg1;
+      console.log(name, "svgApp starts");
+      try {
+        pals.forEach((c) => {
+          svg2.removeChild(c);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      pals = [];
+      for (let i = 0; i < arr.length; i++) {
+        let txt = addPal(arr[i], i);
+        pals.push(txt);
+        svg2.appendChild(txt);
+      }
+      startAnim();
+    }
+    function startAnim() {
+      let i = 0;
+      showActual();
+      function showActual() {
+        pals[i].style.transition = "all 0.6s ease-in-out";
+        pals[i].setAttribute("transform", "translate(0,0)");
+        i++;
+        if (i >= pals.length)
+          return;
+        sto = setTimeout(showActual, 600);
+      }
+    }
+    function addPal(str, i) {
+      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.setAttribute("x", i == 0 ? "100" : 150 + i * 20);
+      text.setAttribute("y", (i * lineHeight + lineHeight + offset).toString());
+      text.setAttribute("font-size", fontSize.toString());
+      text.setAttribute("fill", bg || "white");
+      if (i == 0)
+        text.setAttribute("fill", "#ffdd00");
+      text.setAttribute("stroke", "#111111");
+      text.setAttribute("style", "letter-spacing:1px;font-family: sans-serif; font-weight: bold;");
+      text.setAttribute("transform", "translate(-1000,0)");
+      text.textContent = str;
+      return text;
+    }
+    function end() {
+      console.log(name, "svgApp ends");
+      clearTimeout(sto);
+    }
+    function run() {
+    }
+    return { start, end, run };
+  }
+
+  // src/lib/svgApps/SVGapps.js
+  var SVGapps = {
+    curves1App,
+    sistemasApp,
+    defaultApp,
+    graphApp,
+    schemeApp: function() {
+      return {
+        name: "schemeApp",
+        start: function(arg) {
+          console.log(this.name, arg, "svgApp starts");
+        },
+        end: function() {
+          console.log(this.name, "svgApp ends");
+        },
+        run: function() {
+        }
+      };
+    },
+    schoolApp,
+    palabrasApp,
+    palabras2App
+  };
+
+  // src/lib/svgApps/SvgApp.js
+  function initSvgApp(obj, el) {
+    let active2 = true;
+    let ew = el.clientWidth;
+    let eh = el.clientHeight;
+    let app = SVGapps[obj.app]();
+    let svg2 = el.querySelector("svg");
+    svg2.setAttribute("width", ew);
+    svg2.setAttribute("height", eh);
+    svg2.setAttribute("viewBox", `0 0 ${ew} ${eh}`);
+    svg2.innerHTML = ``;
+    if (app)
+      app.start(svg2);
+    run();
+    function run() {
+      if (!active2)
+        return;
+      if (app)
+        app.run();
+      requestAnimationFrame(run);
+    }
+    function end() {
+      active2 = false;
+      if (app)
+        app.end();
+    }
+    return { end };
+  }
+
   // src/lib/SectionApp.js
   function SectionApp(obj, el) {
     let state = false;
@@ -640,6 +1363,9 @@
       el.style.opacity = 1;
       if (obj.template == "staff") {
         initStaff();
+      }
+      if (obj.template == "svgApp") {
+        currentApp = initSvgApp(obj, el);
       }
       if (obj.template == "fullImage") {
         el.querySelector("img").classList.add("opened");
@@ -722,9 +1448,9 @@
         str += `
             <div class='section ${ii == 0 ? "firstSection" : ""} sect_${block.template}'   
             style="${block.background ? `background-color:${block.background};` : ``}   
-                       ${block.color ? `color:${block.color};` : ``}  
-       ${block.backgroundImage ? `background-image:url(${imgLink(block.backgroundImage, folder)});` : ``}
-       ${block.height && block.template == "fullImage" ? `height:${block.height};font-size:0px;` : ``}
+                  ${block.color ? `color:${block.color};` : ``}  
+                  ${block.backgroundImage ? `background-image:url(${imgLink(block.backgroundImage, folder)});` : ``}
+                  ${block.height && block.template == "fullImage" ? `height:${block.height};font-size:0px;` : ``}
 
        " >
 ${setVars(template, block)}
@@ -796,6 +1522,21 @@ ${setVars(template, block)}
                     </div>
                     `;
         tmp = tmp.split("{list}").join(s);
+      }
+      if (ob.template == "svgApp") {
+        if (ob.title) {
+          tmp = tmp.split("{title}").join(ob.title);
+        } else {
+          tmp = tmp.split("<p class='sectionTitle'>{title}</p>").join("");
+        }
+        if (ob.text) {
+          tmp = tmp.split("{txt}").join(ob.text);
+        } else {
+          tmp = tmp.split("<h3>{txt}</h3>").join("");
+        }
+        if (ob.backgroundImage) {
+          tmp = tmp.split("{imgsrc}").join(ob.backgroundImage);
+        }
       }
       return tmp;
     }
@@ -982,10 +1723,10 @@ ${setVars(template, block)}
   }
   document.addEventListener("keydown", keyd);
   function keyd(event) {
-    if (event)
-      event.preventDefault();
     let ay;
     if (event.keyCode === 40) {
+      if (event)
+        event.preventDefault();
       console.log("Up arrow key pressed");
       if (sc) {
         ay = window.pageYOffset;
@@ -993,6 +1734,8 @@ ${setVars(template, block)}
         sc.goTo(ay + window.innerHeight);
       }
     } else if (event.keyCode === 38) {
+      if (event)
+        event.preventDefault();
       console.log("Down arrow key pressed");
       if (sc) {
         ay = window.pageYOffset;
@@ -1002,6 +1745,10 @@ ${setVars(template, block)}
     }
   }
   function showProject(obj) {
+    let pnavs = [...document.querySelectorAll(".rightNav")];
+    pnavs.forEach((pp) => {
+      document.body.removeChild(pp);
+    });
     inProject = true;
     loader.show();
     listApp.hide();
@@ -1020,7 +1767,52 @@ ${setVars(template, block)}
         loader.hide();
         scrollForMore.show();
       }, 1e3);
+      initRightNav(projectDiv, rightNavClick);
     });
+  }
+  function rightNavClick(e) {
+    if (e)
+      e.preventDefault();
+    let i = Number(this.getAttribute("data-i"));
+    if (sc)
+      sc.goTo(window.innerHeight * i);
+  }
+  function initRightNav(dv, clickFn) {
+    const myArray = [...dv.querySelectorAll(".section")];
+    createSVGImage(myArray);
+    function createSVGImage(array) {
+      const svgNS3 = "http://www.w3.org/2000/svg";
+      const svg2 = document.createElementNS(svgNS3, "svg");
+      svg2.setAttribute("width", "40");
+      svg2.setAttribute("height", window.innerHeight.toString());
+      svg2.style.position = "fixed";
+      svg2.style.right = "0";
+      svg2.style.top = "0";
+      svg2.classList.add("rightNav");
+      document.body.appendChild(svg2);
+      const circleHeight = window.innerHeight / array.length;
+      const line = document.createElementNS(svgNS3, "path");
+      line.setAttribute("fill", "none");
+      line.setAttribute("stroke", "black");
+      line.setAttribute("d", `M20,0 L20,${window.innerHeight}`);
+      svg2.appendChild(line);
+      for (let i = 0; i < array.length; i++) {
+        const circle = document.createElementNS(svgNS3, "circle");
+        circle.setAttribute("cx", "20");
+        circle.setAttribute("cy", ((i + 0.5) * circleHeight).toString());
+        circle.setAttribute("r", "3");
+        circle.setAttribute("fill", "#aaaaaaaa");
+        circle.setAttribute("stroke", "black");
+        circle.setAttribute("data-i", i);
+        svg2.appendChild(circle);
+        circle.style.cursor = "pointer";
+        initEvents(circle);
+      }
+    }
+    function initEvents(circle) {
+      if (clickFn)
+        circle.addEventListener("click", clickFn);
+    }
   }
   function updatePos(ob) {
     if (ob.dy == 0) {
@@ -1067,49 +1859,11 @@ ${setVars(template, block)}
     projectDiv.innerHTML = "";
     listApp.show();
     sc = easeScroll(updatePos, listDiv);
-    setBrillance("dark");
     if (AProject) {
       goToHashProject(AProject);
     }
   }
   function back(e) {
     console.log("back", e);
-  }
-  function setBrillance(com, parent) {
-    if (com == "dark") {
-      headerEl.classList.remove("invert");
-      return;
-    }
-    if (com == "bright" || com == "light") {
-      headerEl.classList.add("invert");
-      return;
-    }
-    const parentStyle = getComputedStyle(parent);
-    let parentBgColor = parentStyle.backgroundColor;
-    let parentColor = parseInt(parentBgColor.substring(1), 16);
-    if (isNaN(parentColor)) {
-      parentBgColor = rgbToHex(parentBgColor);
-    }
-    parentColor = parseInt(parentBgColor.substring(1), 16);
-    if (isNaN(parentColor)) {
-      return;
-    }
-    const r = parentColor >> 16 & 255;
-    const g = parentColor >> 8 & 255;
-    const b = parentColor & 255;
-    const brightness = (r * 299 + g * 587 + b * 114) / 1e3;
-    const isLight = brightness > 180;
-    if (isLight) {
-      headerEl.classList.add("invert");
-    } else {
-      headerEl.classList.remove("invert");
-    }
-    function rgbToHex(rgb) {
-      const [r2, g2, b2] = rgb.substring(4, rgb.length - 1).split(", ").map((x) => parseInt(x));
-      const hexR = r2.toString(16).padStart(2, "0");
-      const hexG = g2.toString(16).padStart(2, "0");
-      const hexB = b2.toString(16).padStart(2, "0");
-      return `#${hexR}${hexG}${hexB}`;
-    }
   }
 })();
